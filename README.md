@@ -15,6 +15,13 @@ Firstly apply CSS file in the `<head>` tag.
 <link href="css/fancy-timer.css" rel="stylesheet" type="text/css" media="screen"/>
 ```
 
+Then apply this CSS classes to a container element.
+```html
+<div id="container" class="ft ft-light"></div>
+```
+
+If you want to use dark theme replace class `ft-light` to `ft-dark`.
+
 ### Simple time count
 This example just counts seconds from start.
 
@@ -29,6 +36,8 @@ const ft = new FancyTimer(container, { value: 0, direction: 1 });
 This example setup the countdown timer for 5 minutes (300 seconds).
 When one minute left it enables warning mode.
 On finish it calls a callback function.
+
+![timer](/img/warn-timer.png)
 
 ```typescript
 import { FancyTimer, IFancyTimerOptions } from 'fancy-timer';
@@ -51,7 +60,11 @@ const ft = new FancyTimer(container, { value: 300, direction: -1 });
 ```
 
 ### New Year countdown
-This example set the countdown timer to New Year.
+This example set the countdown timer to New Year with the captions.
+
+![New Year Timer](/img/light-theme.png)
+
+![Dark Theme](/img/dark-theme.png)
 
 ```typescript
 import { FancyTimer, IFancyTimerOptions } from 'fancy-timer';
