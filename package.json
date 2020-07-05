@@ -1,0 +1,28 @@
+{
+  "name": "fancy-timer",
+  "version": "1.0.0",
+  "description": "Digital countdown timer, clock and more",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "repository": {
+    "git": "https://github.com/Lexxus/fancy-timer"
+  },
+  "scripts": {
+    "build": "npm run compile && npm run patch && npm run minify",
+    "compile": "tsc -p .",
+    "patch": "node build-patch ./build/index.js",
+    "minify": "terser -c -m -o ./build/index.min.js ./build/index.js",
+    "build:demo": "tsc -p ./demo",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "timer",
+    "countdown"
+  ],
+  "author": "Oleksii Teterin",
+  "license": "MIT",
+  "devDependencies": {
+    "terser": "^4.8.0",
+    "typescript": "^3.9.6"
+  }
+}

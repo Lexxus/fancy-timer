@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Fancy Timer Demo</title>
+    <link href="css/fancy-timer.css" rel="stylesheet" type="text/css" media="screen"/>
+    <style type="text/css">
+      .code {
+        background-color: #eee;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fancy Timer Demo</h1>
+
+    <h2>Countdown with warning</h2>
+    <div id="container0" class="ft ft-light"></div>
+    <pre class="code">
+      var ft = new FancyTimer(
+        document.getElementById('container'),
+        {
+          value: 70,
+          warn: {
+            secondsLeft: 60
+          },
+          onWarning: function() {
+            console.log('WARNING!');
+          }
+        }
+      );
+      ft.start(-1);
+    </pre>
+
+    <h2>Start/Revers Timer</h2>
+    <div id="container1" class="ft ft-light"></div>
+    <button id="startStopBtn" type="button">Start</button>
+    <pre class="code">
+      var options = {
+        value: 0,
+        onFinish: function() {
+          startStopBtn.textContent = 'Start';
+          startStopBtn.disabled = false;
+        }
+      };
+      var ft = new FancyTimer(
+        document.getElementById('container'),
+        options
+      );
+      var startStopBtn = document.getElementById('startStopBtn');
+      startStopBtn.addEventListener('click', function() {
+        if (['Start', 'Resume'].includes(startStopBtn.textContent)) {
+          options.reverseAnimation = false;
+          ft.updateOptions(options);
+          ft.start(1);
+          startStopBtn.textContent = 'Revert';
+        } else {
+          options.reverseAnimation = true;
+          ft.updateOptions(options);
+          ft.start(-1);
+          startStopBtn.disabled = true;
+        }
+      });
+    </pre>
+
+    <h2>Time from the begining of this year (dark theme)</h2>
+    <div id="container2" class="ft ft-dark"></div>
+    <pre class="code">
+      var year = new Date().getFullYear();
+      var options = {
+        value: new Date(year + '-01-01'),
+        captions: {
+          days: 'Days',
+          hours: 'Hours',
+          minutes: 'Minutes',
+          seconds: 'Seconds'
+        },
+        showDays: 3
+      };
+      var ft = new FancyTimer(
+        document.getElementById('container'),
+        options
+      );
+    </pre>
+
+    <h2>Time left to new year (light theme)</h2>
+    <div id="container3" class="ft ft-light"></div>
+    <pre class="code">
+      var options = {
+        value: new Date((year + 1) + '-01-01'),
+        captions: {
+          days: 'Dias',
+          hours: 'Horas',
+          minutes: 'Minutos',
+          seconds: 'Segundos'
+        },
+        showDays: 3,
+        reverseAnimation: true
+      };
+      var ft = new FancyTimer(
+        document.getElementById('container'),
+        options
+      );
+    </pre>
+
+    <script src="build/index.min.js"></script>
+
+    <script>
+      var ft0 = new FancyTimer(
+        document.getElementById('container0'),
+        {
+          value: 70,
+          warn: {
+            secondsLeft: 60
+          },
+          onWarning: function() {
+            console.log('WARNING!');
+          }
+        }
+      );
+      ft0.start(-1);
+    </script>
+    <script>
+      var options1 = {
+        value: 0,
+        onFinish: function() {
+          console.log('STOPED!');
+          startStopBtn.textContent = 'Start';
+          startStopBtn.disabled = false;
+        }
+      };
+      var ft1 = new FancyTimer(
+        document.getElementById('container1'),
+        options1
+      );
+      var startStopBtn = document.getElementById('startStopBtn');
+      startStopBtn.addEventListener('click', function() {
+        if (['Start', 'Resume'].includes(startStopBtn.textContent)) {
+          options1.reverseAnimation = false;
+          ft1.updateOptions(options1);
+          ft1.start(1);
+          startStopBtn.textContent = 'Revert';
+        } else {
+          options1.reverseAnimation = true;
+          ft1.updateOptions(options1);
+          ft1.start(-1);
+          startStopBtn.disabled = true;
+        }
+      });
+    </script>
+    <script>
+      var year = new Date().getFullYear();
+      var options2 = {
+        value: new Date(year + '-01-01'),
+        captions: {
+          days: 'Days',
+          hours: 'Hours',
+          minutes: 'Minutes',
+          seconds: 'Seconds'
+        },
+        showDays: 3
+      };
+      var ft2 = new FancyTimer(
+        document.getElementById('container2'),
+        options2
+      );
+
+      var options3 = {
+        value: new Date((year + 1) + '-01-01'),
+        captions: {
+          days: 'Dias',
+          hours: 'Horas',
+          minutes: 'Minutos',
+          seconds: 'Segundos'
+        },
+        showDays: 3,
+        reverseAnimation: true
+      };
+      var ft2 = new FancyTimer(
+        document.getElementById('container3'),
+        options3
+      );
+    </script>
+  </body>
+</html>

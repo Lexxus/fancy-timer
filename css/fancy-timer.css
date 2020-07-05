@@ -1,0 +1,80 @@
+.ft {
+  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 107%;
+}
+
+.ft-light .ft-digit {
+  background: linear-gradient(to bottom, #FFF 38%,#CCC 100%);
+  color: #000;
+}
+
+.ft-dark .ft-digit {
+  background: linear-gradient(to bottom, #45484D 0%,#000 100%);
+  color: #FFF;
+}
+
+.ft-warn.ft-light .ft-digit {
+  background: linear-gradient(to bottom, #FFF 35%,#E17373 100%);
+}
+
+.ft-warn.ft-dark .ft-digit {
+  background: linear-gradient(to bottom, #A74444 0%,#3F0000 67%);
+}
+
+.ft-digits {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.ft-digit {
+  border: 1px solid silver;
+  border-left: none;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.ft-digit:first-child {
+  border-left: 1px solid silver;
+}
+
+.ft-space {
+  display: inline-block;
+  width: 11px;
+}
+
+.ft-delimiter::before {
+  content: ':';
+  display: inline-block;
+}
+
+.ft-shifter {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -100%;
+}
+
+.ft-transit {
+  top: 0;
+  transition: top 400ms linear;
+}
+
+.ft-reverse .ft-shifter {
+  top: 0;
+}
+
+.ft-reverse .ft-transit {
+  top: -100%;
+}
+
+.ft-caption {
+  font-size: 0.4em;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+}
