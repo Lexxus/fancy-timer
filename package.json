@@ -27,7 +27,6 @@
     "terser": "^4.8.0",
     "typescript": "^3.9.6"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "files": [
     "package.json",
     "README.md",
