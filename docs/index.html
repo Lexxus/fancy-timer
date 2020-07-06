@@ -9,13 +9,25 @@
         background-color: #eee;
         padding: 10px 0;
       }
+      .hide {
+        display: none;
+      }
+      .btn {
+        margin: 0 10px;
+      }
+      .inline {
+        display: flex;
+      }
     </style>
   </head>
   <body>
     <h1>Fancy Timer Demo</h1>
 
     <h2>Countdown with warning</h2>
-    <div id="container0" class="ft ft-light"></div>
+    <div class="inline">
+      <div id="container0" class="ft ft-light"></div>
+      <button type="button" id="restartBtn" class="hide btn">Restart</button>
+    </div>
     <pre class="code">
       var ft = new FancyTimer(
         document.getElementById('container'),
@@ -49,13 +61,15 @@
       );
       var startStopBtn = document.getElementById('startStopBtn');
       startStopBtn.addEventListener('click', function() {
-        if (['Start', 'Resume'].includes(startStopBtn.textContent)) {
+        if (startStopBtn.textContent === 'Start') {
           options.reverseAnimation = false;
           ft.updateOptions(options);
           ft.start(1);
           startStopBtn.textContent = 'Revert';
         } else {
+          ft.stop();
           options.reverseAnimation = true;
+          options.value = undefined;
           ft.updateOptions(options);
           ft.start(-1);
           startStopBtn.disabled = true;
@@ -106,19 +120,26 @@
     <script src="./index.min.js"></script>
 
     <script>
+      var restartBtn = document.getElementById('restartBtn');
+      var options0 = {
+        value: 70,
+        warn: {
+          secondsLeft: 60
+        },
+        onFinish: function () {
+          restartBtn.classList.remove('hide');
+        }
+      };
       var ft0 = new FancyTimer(
         document.getElementById('container0'),
-        {
-          value: 70,
-          warn: {
-            secondsLeft: 60
-          },
-          onWarning: function() {
-            console.log('WARNING!');
-          }
-        }
+        options0
       );
       ft0.start(-1);
+      restartBtn.addEventListener('click', function() {
+        ft0.setValue(70);
+        ft0.start(-1);
+        restartBtn.classList.add('hide');
+      });
     </script>
     <script>
       var options1 = {
@@ -135,13 +156,15 @@
       );
       var startStopBtn = document.getElementById('startStopBtn');
       startStopBtn.addEventListener('click', function() {
-        if (['Start', 'Resume'].includes(startStopBtn.textContent)) {
+        if (startStopBtn.textContent === 'Start') {
           options1.reverseAnimation = false;
           ft1.updateOptions(options1);
           ft1.start(1);
           startStopBtn.textContent = 'Revert';
         } else {
+          ft1.stop();
           options1.reverseAnimation = true;
+          options1.value = undefined;
           ft1.updateOptions(options1);
           ft1.start(-1);
           startStopBtn.disabled = true;

@@ -3,7 +3,7 @@
  * Show countdown timer or realtime clock
  *
  * @author Oleksii Teterin <altmoc@gmail.com>
- * @version 1.0.0
+ * @version 1.0.2
  * @license ISC http://opensource.org/licenses/ISC
  * @date 2020-07-05
  * @host https://github.com/Lexxus/fancy-timer
@@ -132,7 +132,7 @@ export class FancyTimer {
       el.addEventListener('transitionend', this.handleTransitionEnd);
     });
 
-    this.showValue(this.value, true);
+    this.update(this.value, true);
 
     // if direction is specified start the timer immediately
     if (this.direction) {
@@ -186,7 +186,7 @@ export class FancyTimer {
    * @param value - value in seconds to apply.
    * @param force - optional, if true apply immediately without animation. Default false.
    */
-  public showValue(value: number, force = false) {
+  public update(value: number, force = false) {
     const days = Math.floor(value / DAY);
     let val = value % DAY;
     const hours = Math.floor(val / HOUR);
@@ -215,6 +215,27 @@ export class FancyTimer {
     this.onFinish = onFinish;
     this.onWarning = onWarning;
 
+    this.setValue(value);
+
+    if (this.reverse) {
+      this.container.classList.add(REVERSE_CLASS_NAME);
+    } else {
+      this.container.classList.remove(REVERSE_CLASS_NAME)
+    }
+  }
+
+  /**
+   * Set value property.
+   * @param value
+   * if number: the value is in seconds;
+   * if Date: initial value setup as the seconds after or before the date;
+   * if string: it tryes to parse the value as time in format "HH:mm:ss"
+   *  and setup initial value as the seconds after of before the specified time today,
+   *  if parsing is failed, initial value set to 0.
+   */
+  public setValue(value?: number | Date | string): void {
+    this.timestamp = Date.now();
+
     switch (typeof value) {
       case 'number':
         this.value = value;
@@ -237,12 +258,6 @@ export class FancyTimer {
           this.value = date2Seconds(date);
         }
         break;
-    }
-
-    if (this.reverse) {
-      this.container.classList.add(REVERSE_CLASS_NAME);
-    } else {
-      this.container.classList.remove(REVERSE_CLASS_NAME)
     }
   }
 
@@ -268,7 +283,7 @@ export class FancyTimer {
           this.onFinish();
         }
       } else {
-        this.showValue(value);
+        this.update(value);
       }
       if (this.warn) {
         const isWarn = this.direction < 0 && value >= 0 && this.warn.secondsLeft >= value;

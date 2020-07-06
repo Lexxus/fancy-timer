@@ -3,7 +3,7 @@
  * Show countdown timer or realtime clock
  *
  * @author Oleksii Teterin <altmoc@gmail.com>
- * @version 1.0.0
+ * @version 1.0.2
  * @license ISC http://opensource.org/licenses/ISC
  * @date 2020-07-05
  * @host https://github.com/Lexxus/fancy-timer
@@ -69,7 +69,7 @@
                 el.parentElement.style.height = height / 2 + "px";
                 el.addEventListener('transitionend', _this.handleTransitionEnd);
             });
-            this.showValue(this.value, true);
+            this.update(this.value, true);
             // if direction is specified start the timer immediately
             if (this.direction) {
                 this.start(this.direction);
@@ -117,7 +117,7 @@
          * @param value - value in seconds to apply.
          * @param force - optional, if true apply immediately without animation. Default false.
          */
-        FancyTimer.prototype.showValue = function (value, force) {
+        FancyTimer.prototype.update = function (value, force) {
             if (force === void 0) { force = false; }
             var days = Math.floor(value / DAY);
             var val = value % DAY;
@@ -144,6 +144,25 @@
             this.warn = warn;
             this.onFinish = onFinish;
             this.onWarning = onWarning;
+            this.setValue(value);
+            if (this.reverse) {
+                this.container.classList.add(REVERSE_CLASS_NAME);
+            }
+            else {
+                this.container.classList.remove(REVERSE_CLASS_NAME);
+            }
+        };
+        /**
+         * Set value property.
+         * @param value
+         * if number: the value is in seconds;
+         * if Date: initial value setup as the seconds after or before the date;
+         * if string: it tryes to parse the value as time in format "HH:mm:ss"
+         *  and setup initial value as the seconds after of before the specified time today,
+         *  if parsing is failed, initial value set to 0.
+         */
+        FancyTimer.prototype.setValue = function (value) {
+            this.timestamp = Date.now();
             switch (typeof value) {
                 case 'number':
                     this.value = value;
@@ -168,12 +187,6 @@
                     }
                     break;
             }
-            if (this.reverse) {
-                this.container.classList.add(REVERSE_CLASS_NAME);
-            }
-            else {
-                this.container.classList.remove(REVERSE_CLASS_NAME);
-            }
         };
         /**
          * Get actual value in seconds that depends on the time when timer has been started.
@@ -196,7 +209,7 @@
                     }
                 }
                 else {
-                    this.showValue(value);
+                    this.update(value);
                 }
                 if (this.warn) {
                     var isWarn = this.direction < 0 && value >= 0 && this.warn.secondsLeft >= value;

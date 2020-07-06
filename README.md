@@ -1,6 +1,10 @@
 # fancy-timer
 Digital countdown timer, clock and more
 
+## Demo with code examples
+
+https://lexxus.github.io/fancy-timer/
+
 ## Install
 
 ```
@@ -37,7 +41,7 @@ This example setup the countdown timer for 5 minutes (300 seconds).
 When one minute left it enables warning mode.
 On finish it calls a callback function.
 
-![timer](/img/warn-timer.png)
+![timer](/docs/img/warn-timer.png)
 
 ```typescript
 import { FancyTimer, IFancyTimerOptions } from 'fancy-timer';
@@ -62,9 +66,9 @@ const ft = new FancyTimer(container, { value: 300, direction: -1 });
 ### New Year countdown
 This example set the countdown timer to New Year with the captions.
 
-![New Year Timer](/img/light-theme.png)
+![New Year Timer](/docs/img/light-theme.png)
 
-![Dark Theme](/img/dark-theme.png)
+![Dark Theme](/docs/img/dark-theme.png)
 
 ```typescript
 import { FancyTimer, IFancyTimerOptions } from 'fancy-timer';
@@ -132,3 +136,35 @@ interface IFancyTimerOptions {
   onWarning?: () => void;
 }
 ```
+
+## Methods
+
+```typescript
+FancyTimer.start(direction?: 1 | 0 | -1)
+```
+Start the timer in specified direction: 1 - forward, -1 - backward.
+If `direction` is 0 or omitted, using current `direction` property value.
+
+```typescript
+FancyTimer.stop()
+```
+Stop the timer.
+
+```typescript
+FancyTimer.update(value: number, force = false)
+```
+Update displaying time.
+`value` is in seconds.
+If `force = true` it means the timer updates immetiately without animation.
+This method is not updating any option, so after call `start` method the timer will display an actual `value` property.
+
+```typescript
+FancyTimer.updateOptions(options: IFancyTimerOptions)
+```
+This method allows to update all options except `captions` and `showDays`.
+If some options are not specified they will be set as `undefined` (except `value`, `captions`, `showDays`).
+
+```typescript
+FancyTimer.setValue(value?: number | Date | string)
+```
+This method is very handy if need to update only `value` property.

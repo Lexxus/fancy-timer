@@ -1,12 +1,13 @@
 {
   "name": "fancy-timer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Digital countdown timer, clock and more",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "repository": {
     "git": "https://github.com/Lexxus/fancy-timer"
   },
+  "homepage": "https://lexxus.github.io/fancy-timer/",
   "scripts": {
     "build": "npm run compile && npm run patch && npm run minify",
     "compile": "tsc -p .",
@@ -17,12 +18,22 @@
   },
   "keywords": [
     "timer",
-    "countdown"
+    "countdown",
+    "digital clock"
   ],
   "author": "Oleksii Teterin",
   "license": "MIT",
   "devDependencies": {
     "terser": "^4.8.0",
     "typescript": "^3.9.6"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "build/*",
+    "css/*"
+  ]
 }

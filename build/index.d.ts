@@ -3,7 +3,7 @@
  * Show countdown timer or realtime clock
  *
  * @author Oleksii Teterin <altmoc@gmail.com>
- * @version 1.0.0
+ * @version 1.0.2
  * @license ISC http://opensource.org/licenses/ISC
  * @date 2020-07-05
  * @host https://github.com/Lexxus/fancy-timer
@@ -62,12 +62,22 @@ export declare class FancyTimer {
      * @param value - value in seconds to apply.
      * @param force - optional, if true apply immediately without animation. Default false.
      */
-    showValue(value: number, force?: boolean): void;
+    update(value: number, force?: boolean): void;
     /**
      * Update options. This overwrite old options with the new values except captions & showDays.
      * @param options - new options.
      */
     updateOptions({ value, direction, warn, reverseAnimation, onFinish, onWarning }: Partial<IFancyTimerOptions>): void;
+    /**
+     * Set value property.
+     * @param value
+     * if number: the value is in seconds;
+     * if Date: initial value setup as the seconds after or before the date;
+     * if string: it tryes to parse the value as time in format "HH:mm:ss"
+     *  and setup initial value as the seconds after of before the specified time today,
+     *  if parsing is failed, initial value set to 0.
+     */
+    setValue(value?: number | Date | string): void;
     /**
      * Get actual value in seconds that depends on the time when timer has been started.
      * @returns actual value in seconds.
